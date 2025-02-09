@@ -124,8 +124,8 @@
 
 // export default MockInterview;
 
+//const apiKey = process.env.REACT_APP_OPENAI_API_KEY;
 
-// // //const OPENAI_API_KEY = "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"; 
 import { FaUserTie, FaLaptopCode } from "react-icons/fa"; // Import icons
 
 import React, { useState } from "react";
