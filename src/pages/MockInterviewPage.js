@@ -1,6 +1,4 @@
-
 import { FaUserTie, FaLaptopCode } from "react-icons/fa"; // Import icons
-
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 
