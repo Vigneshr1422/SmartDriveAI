@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { db } from "../auth/firebase"; 
-import { doc, getDoc } from "firebase/firestore"; 
-import { getAuth, signOut } from "firebase/auth"; 
+import { db } from "../auth/firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { getAuth, signOut } from "firebase/auth";
 import {
   FaUserAlt,
   FaFileAlt,
@@ -10,7 +10,7 @@ import {
   FaHistory,
   FaCommentAlt,
   FaRobot,
-} from "react-icons/fa"; 
+} from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const StudentPage = () => {
@@ -61,7 +61,6 @@ const StudentPage = () => {
 
   return (
     <div className="student-dashboard flex justify-center items-center h-screen bg-gray-100">
-      {/* 🔥 Custom Animated Loader */}
       {isLoading ? (
         <div className="flex flex-col items-center">
           <div className="loader">
@@ -69,7 +68,9 @@ const StudentPage = () => {
             <div className="dot"></div>
             <div className="dot"></div>
           </div>
-          <p className="mt-3 text-gray-700 font-semibold animate-pulse">Fetching your data...</p>
+          <p className="mt-3 text-gray-700 font-semibold animate-pulse">
+            Fetching your data...
+          </p>
         </div>
       ) : (
         <div
@@ -83,9 +84,15 @@ const StudentPage = () => {
             <h3 className="text-xl font-semibold mb-2">Student Profile</h3>
             {studentDetails ? (
               <>
-                <p className="text-gray-600"><strong>Department:</strong> {studentDetails.department}</p>
-                <p className="text-gray-600"><strong>Email:</strong> {studentDetails.email}</p>
-                <p className="text-gray-600"><strong>Section:</strong> {studentDetails.section}</p>
+                <p className="text-gray-600">
+                  <strong>Department:</strong> {studentDetails.department}
+                </p>
+                <p className="text-gray-600">
+                  <strong>Email:</strong> {studentDetails.email}
+                </p>
+                <p className="text-gray-600">
+                  <strong>Section:</strong> {studentDetails.section}
+                </p>
               </>
             ) : (
               <p className="text-gray-600">Student details not available.</p>
@@ -100,26 +107,47 @@ const StudentPage = () => {
 
           {/* Dashboard Features */}
           <div className="dashboard-content w-2/3 p-6">
-            <h2 className="text-3xl font-semibold mb-6 text-center">Student Dashboard</h2>
-            <div className="grid grid-cols-3 gap-6">
-              {[
-                { icon: FaFileAlt, label: "Resume Check", action: () => navigate("/resume-click"), color: "blue-500" },
-                { icon: FaCalendarAlt, label: "Upcoming Drives", action: () => {}, color: "green-500" },
-                { icon: FaBook, label: "Training & Resources", action: () => {}, color: "yellow-500" },
-                { icon: FaHistory, label: "Placement History", action: () => {}, color: "purple-500" },
-                { icon: FaCommentAlt, label: "Interview Prep", action: () => {}, color: "red-500" },
-                { icon: FaRobot, label: "Mock Interview", action: () => navigate("/mock-interview"), color: "indigo-500" },
-              ].map(({ icon: Icon, label, action, color }, index) => (
-                <button
-                  key={index}
-                  onClick={action}
-                  className={`icon-button flex flex-col items-center text-center p-4 bg-white shadow-md rounded-lg hover:bg-gray-100 transform transition-all duration-500 hover:scale-110`}
-                >
-                  <Icon className={`text-3xl text-${color} mb-2`} />
-                  <span>{label}</span>
-                </button>
-              ))}
-            </div>
+            <h2 className="text-3xl font-semibold mb-6 text-center">
+              Student Dashboard
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+  {[
+    {
+      icon: FaFileAlt,
+      label: "Resume Check",
+      action: () => navigate("/resume-click"),
+      color: "blue-500",
+    },
+    {
+      icon: FaCalendarAlt,
+      label: "Upcoming Drives",
+      action: () => navigate("/drivestu"),
+      color: "green-500",
+    },
+    {
+      icon: FaHistory,
+      label: "Placement History",
+      action: () => navigate("/placehistory"),
+      color: "purple-500",
+    },
+    {
+      icon: FaRobot,
+      label: "Mock Interview",
+      action: () => navigate("/mock-interview"),
+      color: "indigo-500",
+    },
+  ].map(({ icon: Icon, label, action, color }, index) => (
+    <button
+      key={index}
+      onClick={action}
+      className="icon-button flex flex-col items-center text-center p-4 bg-white shadow-md rounded-lg hover:bg-gray-100 transform transition-all duration-500 hover:scale-110"
+    >
+      <Icon className={`text-3xl text-${color} mb-2`} />
+      <span>{label}</span>
+    </button>
+  ))}
+</div>
+
           </div>
         </div>
       )}
@@ -128,6 +156,7 @@ const StudentPage = () => {
 };
 
 export default StudentPage;
+
 
 // import React, { useEffect, useState } from "react";
 // import { db } from "../auth/firebase"; // Your Firestore configuration

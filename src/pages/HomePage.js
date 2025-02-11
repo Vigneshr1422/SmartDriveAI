@@ -8,6 +8,8 @@ const HomePage = () => {
   return (
     <div className="min-h-screen font-sans bg-gray-100 pt-20"> {/* Add pt-20 to push content down */}
       {/* Hero Section */}
+      <section id="home" >
+
       <div className="container mx-auto px-6 lg:px-20 flex flex-col lg:flex-row items-center py-20">
         <div className="lg:w-1/2 text-center lg:text-left">
           <h1 className="text-5xl font-extrabold text-gray-900 mb-6">
@@ -31,6 +33,8 @@ const HomePage = () => {
           <img src="/first.png" alt="Illustration" className="w-full max-w-lg" />
         </div>
       </div>
+      </section>
+
 
       {/* Drive AI Features Section */}
       <div className="bg-gradient-to-r from-pink-500 to-red-500 text-white min-h-screen flex items-center justify-center">
@@ -49,10 +53,11 @@ const HomePage = () => {
           ))}
         </div>
       </div>
+      <section id="about" >
 
       {/* Why Choose Drive AI Section */}
 {/* Why Choose Drive AI Section */}
-<div id="why-choose" className="bg-gray-50 py-16 min-h-screen">
+<div id="about" className="bg-gray-50 py-16 min-h-screen">
         <div className="container mx-auto px-6 lg:px-16 text-center">
           <h2 className="text-4xl font-extrabold text-gray-800 mb-6">
             Why Choose Drive AI? 🚀
@@ -78,6 +83,9 @@ const HomePage = () => {
           </div>
         </div>
       </div>
+      </section>
+
+      <section id="features" >
 
       {/* Drive AI Advantage Section */}
       <div className="bg-gray-900 text-white py-16 min-h-screen flex items-center">
@@ -132,6 +140,8 @@ const HomePage = () => {
           </div>
         </div>
       </div>
+      </section>
+
     </div>
   );
 };

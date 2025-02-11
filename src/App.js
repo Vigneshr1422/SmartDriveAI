@@ -6,7 +6,7 @@ import UploadMaterial from "./pages/UploadMaterial";
 import MockInterviewPage from "./pages/MockInterviewPage";
 
 import StudentPage from "./pages/StudentPage";
-import ManagerPage from "./pages/ManagerDashboard ";
+import ManagerPage from "./pages/ManagerDashboard";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
@@ -22,6 +22,9 @@ import ExcelGenerator from "./pages/ExcelGenerator";
 import CompanyDetail from "./pages/CompanyDetail";
 import PieChartPage from "./pages/PieChart";
 import DriveDetails from "./pages/DriveDetails";
+import Drivestu from "./pages/Drivestu";
+// import Trining from "./pages/Trining";
+import Placehistory from "./pages/Placehistory";
 import TrainingPartner from "./pages/Training";
 import Notify from "./pages/Notify";
 import ResumeClick from "./pages/ResumeClick"; // Import ResumeClick page
@@ -67,6 +70,9 @@ function App() {
           <Route path="/generate-report" element={<ExcelGenerator />} />
           <Route path="/company-details" element={<CompanyDetail />} />
           <Route path="/drive-details" element={<DriveDetails />} />
+          <Route path="/drivestu" element={<Drivestu />} />
+        {/* <Route path="/trining" element={<Trining />} /> */}
+        <Route path="/Placehistory" element={<Placehistory />} />
           <Route
             path="/training-partner"
             element={
