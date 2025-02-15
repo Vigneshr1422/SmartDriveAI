@@ -115,7 +115,7 @@ const StudentList = () => {
       ) : students.length > 0 ? (
         <div className="overflow-x-auto"> {/* Scrollable table wrapper */}
           <table className="min-w-full border-collapse border border-gray-300">
-            <thead className="bg-teal-500 text-white">
+            <thead className="bg-blue-500 text-white">
               <tr>
                 <th className="border border-gray-300 px-4 py-2">S.No</th>
                 <th className="border border-gray-300 px-4 py-2">Reg No</th>

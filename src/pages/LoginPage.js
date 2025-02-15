@@ -69,78 +69,96 @@ const LoginPage = () => {
   const handleErrorDismiss = () => {
     setErrorMessage(""); // Clear the error message when "OK" is clicked
   };
-
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-600 via-blue-500 to-indigo-600">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full sm:w-96">
-        <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-8">
-          Login to Your Account
-        </h2>
 
-        <form onSubmit={handleLogin} className="space-y-6">
-          <div className="form-group">
-            <label htmlFor="email" className="block text-gray-700 font-medium mb-2">Email</label>
-            <input
-              type="email"
-              id="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)} // Update email state on change
-              required
-              className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="password" className="block text-gray-700 font-medium mb-2">Password</label>
-            <input
-              type="password"
-              id="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)} // Update password state on change
-              required
-              className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-300"
-            disabled={loading} // Disable button when loading
-          >
-            {loading ? (
-              <div className="loader">Loading...</div> // Add a loading spinner here
-            ) : (
-              "Login"
-            )}
-          </button>
-        </form>
-
-        {errorMessage && (
-          <div className="mt-4 text-red-500 text-center">
-            <p>{errorMessage}</p>
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-600 via-blue-500 to-indigo-600 px-4">
+        <div className="bg-white p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-sm sm:w-96 mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-center text-gray-800 mb-6 sm:mb-8">
+            Login to Your Account
+          </h2>
+    
+          <form onSubmit={handleLogin} className="space-y-5 sm:space-y-6">
+            <div>
+              <label htmlFor="email" className="block text-gray-700 font-medium mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full p-3 sm:p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              />
+            </div>
+    
+            <div>
+              <label htmlFor="password" className="block text-gray-700 font-medium mb-2">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="w-full p-3 sm:p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              />
+            </div>
+    
             <button
-              onClick={handleErrorDismiss}
-              className="text-blue-600 hover:underline mt-2 font-semibold"
+              type="submit"
+              className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-300"
+              disabled={loading}
             >
-              OK
+              {loading ? (
+                <div className="flex justify-center items-center">
+                  <svg
+                    className="animate-spin h-5 w-5 mr-3 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path d="M22 12l-4-2" stroke="currentColor" strokeWidth="4" />
+                  </svg>
+                  Processing...
+                </div>
+              ) : (
+                "Login"
+              )}
+            </button>
+          </form>
+    
+          {errorMessage && (
+            <div className="mt-4 text-red-500 text-center">
+              <p>{errorMessage}</p>
+              <button
+                onClick={handleErrorDismiss}
+                className="text-blue-600 hover:underline mt-2 font-semibold"
+              >
+                OK
+              </button>
+            </div>
+          )}
+    
+          <div className="text-center mt-6">
+            <span className="text-gray-600">Don't have an account? </span>
+            <button
+              onClick={navigateToRegister}
+              className="text-blue-600 hover:underline font-semibold"
+            >
+              Register here
             </button>
           </div>
-        )}
-
-        <div className="text-center mt-6">
-          <span className="text-gray-600">Don't have an account? </span>
-          <button
-            onClick={navigateToRegister}
-            className="text-blue-600 hover:underline font-semibold"
-          >
-            Register here
-          </button>
         </div>
       </div>
-    </div>
-  );
+    );
+    
+  
 };
 
 export default LoginPage;

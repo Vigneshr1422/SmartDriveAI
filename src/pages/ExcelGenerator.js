@@ -113,117 +113,121 @@ const ExcelGenerator = () => {
   };
 
   return (
-<div className=" p-6 flex flex-col items-center mt-16">
-<Toaster position="top-center" reverseOrder={false} />
-
-      <h2 className="text-2xl font-bold mb-4">Export Filtered Students</h2>
-
-      {/* Filter Inputs */}
-      <div className="grid grid-cols-4 gap-4 mb-4">
-        {["tenth", "twelfth", "ug", "pg"].map((field) => (
-          <div key={field}>
-            <label className="block text-sm font-medium mb-2 capitalize">
-              {field} %
-            </label>
-            <input
-              type="number"
-              name={field}
-              value={filterCriteria[field] || ""}
-              onChange={handleFilterChange}
-              placeholder={`Min ${field} %`}
-              className="border border-gray-300 p-2 rounded w-full"
-            />
-          </div>
-        ))}
+    <div className="p-6 sm:p-8 flex flex-col items-center mt-24 bg-gray-100 min-h-screen">
+      <Toaster position="top-center" reverseOrder={false} />
+  
+      {/* Header */}
+      <h2 className="text-3xl font-extrabold text-gray-900 mb-12 text-center tracking-wide">
+        🎓 Export Filtered Students
+      </h2>
+  
+      {/* Filter Inputs Container */}
+      <div className="bg-white/90 backdrop-blur-md shadow-lg rounded-xl p-6 sm:p-8 w-full max-w-3xl">
+        <h3 className="text-lg font-semibold mb-4 text-gray-700">📊 Filter Criteria</h3>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+          {["tenth", "twelfth", "ug", "pg"].map((field) => (
+            <div key={field} className="flex flex-col">
+              <label className="text-sm font-medium text-gray-700 capitalize mb-1">
+                {field} %
+              </label>
+              <input
+                type="number"
+                name={field}
+                value={filterCriteria[field] || ""}
+                onChange={handleFilterChange}
+                placeholder={`Min ${field} %`}
+                className="border border-gray-300 p-2 rounded-lg w-full text-sm focus:ring-2 focus:ring-blue-400 outline-none transition"
+              />
+            </div>
+          ))}
+        </div>
       </div>
-
-      {/* Manual Input Fields */}
-      <h3 className="text-xl font-semibold mb-2">Additional Details</h3>
-      <div className="grid grid-cols-4 gap-4 mb-4">
-        {["companyName", "role", "location", "salary"].map((field) => (
-          <div key={field}>
-            <label className="block text-sm font-medium mb-2 capitalize">
-              {field.replace(/([A-Z])/g, " $1")}
-            </label>
-            <input
-              type="text"
-              name={field}
-              value={manualFields[field] || ""}
-              onChange={handleManualFieldChange}
-              placeholder={`Enter ${field.replace(/([A-Z])/g, " $1")}`}
-              className="border border-gray-300 p-2 rounded w-full"
-            />
-          </div>
-        ))}
+  
+      {/* Additional Fields */}
+      <div className="bg-white/90 backdrop-blur-md shadow-lg rounded-xl p-6 sm:p-8 w-full max-w-3xl mt-14">
+        <h3 className="text-lg font-semibold mb-4 text-gray-700">🏢 Additional Details</h3>
+  
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+          {["companyName", "role", "location", "salary"].map((field) => (
+            <div key={field} className="flex flex-col">
+              <label className="text-sm font-medium text-gray-700 capitalize mb-1">
+                {field.replace(/([A-Z])/g, " $1")}
+              </label>
+              <input
+                type="text"
+                name={field}
+                value={manualFields[field] || ""}
+                onChange={handleManualFieldChange}
+                placeholder={`Enter ${field.replace(/([A-Z])/g, " $1")}`}
+                className="border border-gray-300 p-2 rounded-lg w-full text-sm focus:ring-2 focus:ring-green-400 outline-none transition"
+              />
+            </div>
+          ))}
+        </div>
       </div>
-
-      {/* Filter and Export Buttons */}
-      <div className="flex space-x-4">
+  
+      {/* Buttons */}
+      <div className="flex flex-wrap justify-center gap-4 mt-6">
         <button
           onClick={applyFilters}
-          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+          className="bg-blue-600 text-white py-2 px-6 rounded-lg text-sm sm:text-base shadow-md hover:bg-blue-700 transition"
         >
-          Apply Filters
+          🔍 Apply Filters
         </button>
         <button
           onClick={exportToExcel}
-          className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
+          className="bg-green-600 text-white py-2 px-6 rounded-lg text-sm sm:text-base shadow-md hover:bg-green-700 transition"
         >
-          Export to Excel
+          📤 Export to Excel
         </button>
         <button
           onClick={() => navigate(-1)}
-          className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"
+          className="bg-gray-500 text-white py-2 px-6 rounded-lg text-sm sm:text-base shadow-md hover:bg-gray-600 transition"
         >
-          Back
+          ⬅️ Back
         </button>
       </div>
 
+  
       {/* Filtered Students Table */}
       {filteredStudents.length > 0 ? (
-        <table className="min-w-full border-collapse border border-gray-300 mt-4">
-          <thead className="bg-teal-500 text-white">
-            <tr>
-              <th className="border border-gray-300 px-4 py-2">S.No</th>
-              <th className="border border-gray-300 px-4 py-2">Reg No</th>
-              <th className="border border-gray-300 px-4 py-2">Name</th>
-              <th className="border border-gray-300 px-4 py-2">10th %</th>
-              <th className="border border-gray-300 px-4 py-2">12th %</th>
-              <th className="border border-gray-300 px-4 py-2">UG %</th>
-              <th className="border border-gray-300 px-4 py-2">PG %</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredStudents.map((student, index) => (
-              <tr key={index} className="hover:bg-gray-100">
-                <td className="border border-gray-300 px-4 py-2">{index + 1}</td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {student.regNo || "N/A"}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {student.name || "N/A"}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {student.tenth || "N/A"}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {student.twelfth || "N/A"}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {student.ug || "N/A"}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {student.pg || "N/A"}
-                </td>
+        <div className="w-full overflow-x-auto mt-8">
+          <table className="w-full border-collapse border border-gray-200 shadow-md rounded-lg text-sm sm:text-base">
+            <thead className="bg-blue-500 text-white">
+              <tr>
+                {["S.No", "Reg No", "Name", "10th %", "12th %", "UG %", "PG %"].map((heading, index) => (
+                  <th key={index} className="border border-gray-300 px-4 py-2 text-center min-w-[100px]">
+                    {heading}
+                  </th>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+  
+            <tbody className="bg-white">
+              {filteredStudents.map((student, index) => (
+                <tr
+                  key={index}
+                  className={`hover:bg-gray-100 transition duration-200 ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}
+                >
+                  <td className="border border-gray-300 px-4 py-2 text-center">{index + 1}</td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">{student.regNo || "N/A"}</td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">{student.name || "N/A"}</td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">{student.tenth || "N/A"}</td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">{student.twelfth || "N/A"}</td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">{student.ug || "N/A"}</td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">{student.pg || "N/A"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       ) : (
-        <p className="mt-4">No students match the criteria.</p>
+        <p className="mt-6 text-gray-600 text-sm">⚠️ No students match the criteria.</p>
       )}
     </div>
   );
+  
 };
 
 export default ExcelGenerator;

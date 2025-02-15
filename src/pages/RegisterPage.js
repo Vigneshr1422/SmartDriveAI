@@ -78,45 +78,45 @@ const RegisterPage = () => {
   };
 
   return (
-<div className="flex items-center justify-center h-auto pt-20 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600">
-<div className="bg-white p-6 rounded-lg shadow-md w-full max-w-lg mt-20 mb-20">
+<div className="flex items-center justify-center h-auto pt-32 pb-10 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 px-6">
+<div className="bg-white p-6 rounded-lg shadow-md w-full max-w-lg sm:max-w-md md:max-w-lg">
         <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
           Register a New Account
         </h2>
-
+  
         <form onSubmit={handleRegister} className="space-y-4">
-          <div className="form-group">
+          <div>
             <label htmlFor="email" className="block text-gray-700 font-medium mb-2">Email</label>
             <input
               type="email"
               id="email"
               placeholder="Enter your email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)} // Update email state
+              onChange={(e) => setEmail(e.target.value)}
               required
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
           </div>
-
-          <div className="form-group">
+  
+          <div>
             <label htmlFor="password" className="block text-gray-700 font-medium mb-2">Password</label>
             <input
               type="password"
               id="password"
               placeholder="Enter your password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)} // Update password state
+              onChange={(e) => setPassword(e.target.value)}
               required
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
           </div>
-
-          <div className="form-group">
+  
+          <div>
             <label htmlFor="role" className="block text-gray-700 font-medium mb-2">Role</label>
             <select
               id="role"
               value={role}
-              onChange={(e) => setRole(e.target.value)} // Update role state
+              onChange={(e) => setRole(e.target.value)}
               required
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
             >
@@ -125,15 +125,15 @@ const RegisterPage = () => {
               <option value="manager">Manager</option>
             </select>
           </div>
-
+  
           {(role === "student" || role === "admin") && (
             <>
-              <div className="form-group">
+              <div>
                 <label htmlFor="department" className="block text-gray-700 font-medium mb-2">Department</label>
                 <select
                   id="department"
                   value={department}
-                  onChange={(e) => setDepartment(e.target.value)} // Update department state
+                  onChange={(e) => setDepartment(e.target.value)}
                   required
                   className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 >
@@ -145,13 +145,13 @@ const RegisterPage = () => {
                   <option value="EEEE">EEEE</option>
                 </select>
               </div>
-
-              <div className="form-group">
+  
+              <div>
                 <label htmlFor="section" className="block text-gray-700 font-medium mb-2">Section</label>
                 <select
                   id="section"
                   value={section}
-                  onChange={(e) => setSection(e.target.value)} // Update section state
+                  onChange={(e) => setSection(e.target.value)}
                   required
                   className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 >
@@ -164,53 +164,53 @@ const RegisterPage = () => {
               </div>
             </>
           )}
-
+  
           {role === "student" && (
-            <div className="form-group">
+            <div>
               <label htmlFor="studentKey" className="block text-gray-700 font-medium mb-2">Student Key</label>
               <input
                 type="text"
                 id="studentKey"
                 placeholder="Enter student key"
                 value={studentKey}
-                onChange={(e) => setStudentKey(e.target.value)} // Update student key state
+                onChange={(e) => setStudentKey(e.target.value)}
                 required
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
           )}
-
+  
           {role === "manager" && (
-            <div className="form-group">
+            <div>
               <label htmlFor="managerKey" className="block text-gray-700 font-medium mb-2">Manager Key</label>
               <input
                 type="text"
                 id="managerKey"
                 placeholder="Enter manager key"
                 value={managerKey}
-                onChange={(e) => setManagerKey(e.target.value)} // Update manager key state
+                onChange={(e) => setManagerKey(e.target.value)}
                 required
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
           )}
-
+  
           {role === "admin" && (
-            <div className="form-group">
+            <div>
               <label htmlFor="adminKey" className="block text-gray-700 font-medium mb-2">Admin Key</label>
               <input
                 type="text"
                 id="adminKey"
                 placeholder="Enter admin key"
                 value={adminKey}
-                onChange={(e) => setAdminKey(e.target.value)} // Update admin key state
+                onChange={(e) => setAdminKey(e.target.value)}
                 required
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
           )}
-
-          <div className="form-group">
+  
+          <div>
             <button
               type="submit"
               className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-300"
@@ -235,16 +235,17 @@ const RegisterPage = () => {
             </button>
           </div>
         </form>
-
+  
         {/* Toast Notification */}
         {toastMessage && (
-          <div className="fixed bottom-5 left-1/2 transform -translate-x-1/2 p-4 bg-green-500 text-white rounded-lg shadow-lg">
+          <div className="fixed bottom-5 left-1/2 transform -translate-x-1/2 w-full max-w-xs p-4 bg-green-500 text-white rounded-lg shadow-lg text-center">
             {toastMessage}
           </div>
         )}
       </div>
     </div>
   );
+  
 };
 
 export default RegisterPage;

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const HomePage = () => {
   return (
-    <div className="min-h-screen font-sans bg-gray-100 pt-20"> {/* Add pt-20 to push content down */}
+    <div className="min-h-screen font-sans bg-gray-100 pt-24"> {/* Add pt-20 to push content down */}
       {/* Hero Section */}
       <section id="home" >
 

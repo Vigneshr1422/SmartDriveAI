@@ -130,163 +130,164 @@ const CompanyDetail = () => {
   };
 
   return (
-<div className="company-detail-container p-6 flex flex-col items-center mt-16">
-<h2 className="text-4xl font-bold mb-8 text-center">Company Details</h2>
+<div className="company-detail-container p-4 sm:p-6 flex flex-col items-center mt-20">
+  <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-center">Company Details</h2>
 
-      {!showAddCompanyForm && !showCompanyList && (
-        <div className="grid grid-cols-2 gap-12">
-          <button
-            className="icon-button flex flex-col items-center text-center p-6 bg-white shadow-lg rounded-xl hover:bg-gray-200"
-            onClick={() => setShowCompanyList(true)}
-          >
-            <FaListAlt className="text-4xl text-blue-500 mb-4" />
-            <span className="text-lg font-medium">Company List</span>
-          </button>
+  {!showAddCompanyForm && !showCompanyList && (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <button
+        className="icon-button flex flex-col items-center text-center p-4 sm:p-6 bg-white shadow-lg rounded-xl hover:bg-gray-200 w-full"
+        onClick={() => setShowCompanyList(true)}
+      >
+        <FaListAlt className="text-3xl sm:text-4xl text-blue-500 mb-2 sm:mb-4" />
+        <span className="text-base sm:text-lg font-medium">Company List</span>
+      </button>
 
-          <button
-            className="icon-button flex flex-col items-center text-center p-6 bg-white shadow-lg rounded-xl hover:bg-gray-200"
-            onClick={() => setShowAddCompanyForm(true)}
-          >
-            <FaUserPlus className="text-4xl text-green-500 mb-4" />
-            <span className="text-lg font-medium">Add Company</span>
-          </button>
-        </div>
-      )}
-
-      {showAddCompanyForm && (
-        <form
-          onSubmit={handleFormSubmit}
-          className="space-y-4 mt-6 max-w-3xl w-full p-6 bg-white shadow-lg rounded-xl"
-        >
-          <div className="grid grid-cols-2 gap-6">
-            <div className="col-span-2">
-              <label className="block text-lg font-medium mb-2">Company Name</label>
-              <input
-                type="text"
-                value={companyName}
-                onChange={(e) => setCompanyName(e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-lg font-medium mb-2">Location</label>
-              <input
-                type="text"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-lg font-medium mb-2">Website</label>
-              <input
-                type="url"
-                value={website}
-                onChange={(e) => setWebsite(e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-lg font-medium mb-2">Email</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-lg font-medium mb-2">Company Type</label>
-              <select
-                value={companyType}
-                onChange={(e) => setCompanyType(e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="product">Product</option>
-                <option value="service">Service</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-lg font-medium mb-2">HR Email</label>
-              <input
-                type="email"
-                value={hrEmail}
-                onChange={(e) => setHrEmail(e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                required
-              />
-            </div>
-          </div>
-          <button
-            type="submit"
-            className="w-full py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 mt-6 text-lg"
-          >
-            {editMode ? "Update Company" : "Save Company"}
-          </button>
-        </form>
-      )}
-
-      {showCompanyList && (
-        <div className="flex flex-col items-center mt-6">
-          <div className="overflow-x-auto w-full max-w-5xl">
-            <table className="min-w-full table-auto border-collapse text-sm text-center">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th className="border border-gray-300 p-4">S.No</th>
-                  <th className="border border-gray-300 p-4">Company Name</th>
-                  <th className="border border-gray-300 p-4">Location</th>
-                  <th className="border border-gray-300 p-4">Website</th>
-                  <th className="border border-gray-300 p-4">Email</th>
-                  <th className="border border-gray-300 p-4">HR Email</th>
-                  <th className="border border-gray-300 p-4">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {companies.map((company, index) => (
-                  <tr key={company.id} className="even:bg-gray-50">
-                    <td className="border border-gray-300 p-4">{index + 1}</td>
-                    <td className="border border-gray-300 p-4">{company.companyName}</td>
-                    <td className="border border-gray-300 p-4">{company.location}</td>
-                    <td className="border border-gray-300 p-4">{company.website}</td>
-                    <td className="border border-gray-300 p-4">{company.email}</td>
-                    <td className="border border-gray-300 p-4">{company.hrEmail}</td>
-                    <td className="border border-gray-300 p-4">
-                      <button
-                        onClick={() => handleEditClick(company)}
-                        className="px-3 py-1 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
-                      >
-                        <FaEdit />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
-
-      {(showAddCompanyForm || showCompanyList) && (
-        <div>
-          <button
-            onClick={handleBackToMainMenu}
-            className="mt-6 px-4 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 text-lg"
-          >
-            Back to Main Menu
-          </button>
-          <button
-            onClick={handleBackToAdminPage} // New button to navigate to admin page
-            className="mt-6 ml-4 px-4 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 text-lg"
-          >
-            Back to Admin Page
-          </button>
-        </div>
-      )}
+      <button
+        className="icon-button flex flex-col items-center text-center p-4 sm:p-6 bg-white shadow-lg rounded-xl hover:bg-gray-200 w-full"
+        onClick={() => setShowAddCompanyForm(true)}
+      >
+        <FaUserPlus className="text-3xl sm:text-4xl text-green-500 mb-2 sm:mb-4" />
+        <span className="text-base sm:text-lg font-medium">Add Company</span>
+      </button>
     </div>
+  )}
+
+  {showAddCompanyForm && (
+    <form
+      onSubmit={handleFormSubmit}
+      className="space-y-4 mt-6 w-full max-w-lg p-4 sm:p-6 bg-white shadow-lg rounded-xl"
+    >
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+        <div className="col-span-2">
+          <label className="block text-base sm:text-lg font-medium mb-1">Company Name</label>
+          <input
+            type="text"
+            value={companyName}
+            onChange={(e) => setCompanyName(e.target.value)}
+            className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+        <div>
+          <label className="block text-base sm:text-lg font-medium mb-1">Location</label>
+          <input
+            type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+        <div>
+          <label className="block text-base sm:text-lg font-medium mb-1">Website</label>
+          <input
+            type="url"
+            value={website}
+            onChange={(e) => setWebsite(e.target.value)}
+            className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+        <div>
+          <label className="block text-base sm:text-lg font-medium mb-1">Email</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+        <div>
+          <label className="block text-base sm:text-lg font-medium mb-1">Company Type</label>
+          <select
+            value={companyType}
+            onChange={(e) => setCompanyType(e.target.value)}
+            className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="product">Product</option>
+            <option value="service">Service</option>
+          </select>
+        </div>
+        <div>
+          <label className="block text-base sm:text-lg font-medium mb-1">HR Email</label>
+          <input
+            type="email"
+            value={hrEmail}
+            onChange={(e) => setHrEmail(e.target.value)}
+            className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+      </div>
+      <button
+        type="submit"
+        className="w-full py-2 sm:py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 text-base sm:text-lg"
+      >
+        {editMode ? "Update Company" : "Save Company"}
+      </button>
+    </form>
+  )}
+
+  {showCompanyList && (
+    <div className="flex flex-col items-center mt-6 w-full">
+      <div className="overflow-x-auto w-full max-w-5xl">
+        <table className="min-w-full table-auto border-collapse text-xs sm:text-sm text-center">
+          <thead>
+            <tr className="bg-blue-300">
+              <th className="border border-gray-300 p-2 sm:p-4">S.No</th>
+              <th className="border border-gray-300 p-2 sm:p-4">Company Name</th>
+              <th className="border border-gray-300 p-2 sm:p-4">Location</th>
+              <th className="border border-gray-300 p-2 sm:p-4">Website</th>
+              <th className="border border-gray-300 p-2 sm:p-4">Email</th>
+              <th className="border border-gray-300 p-2 sm:p-4">HR Email</th>
+              <th className="border border-gray-300 p-2 sm:p-4">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {companies.map((company, index) => (
+              <tr key={company.id} className="even:bg-gray-50">
+                <td className="border border-gray-300 p-2 sm:p-4">{index + 1}</td>
+                <td className="border border-gray-300 p-2 sm:p-4">{company.companyName}</td>
+                <td className="border border-gray-300 p-2 sm:p-4">{company.location}</td>
+                <td className="border border-gray-300 p-2 sm:p-4">{company.website}</td>
+                <td className="border border-gray-300 p-2 sm:p-4">{company.email}</td>
+                <td className="border border-gray-300 p-2 sm:p-4">{company.hrEmail}</td>
+                <td className="border border-gray-300 p-2 sm:p-4">
+                  <button
+                    onClick={() => handleEditClick(company)}
+                    className="px-2 sm:px-3 py-1 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
+                  >
+                    <FaEdit />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )}
+
+  {(showAddCompanyForm || showCompanyList) && (
+    <div className="flex flex-col sm:flex-row gap-4 mt-6">
+      <button
+        onClick={handleBackToMainMenu}
+        className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 text-base sm:text-lg"
+      >
+        Back to Main Menu
+      </button>
+      <button
+        onClick={handleBackToAdminPage}
+        className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 text-base sm:text-lg"
+      >
+        Back to Admin Page
+      </button>
+    </div>
+  )}
+</div>
+
   );
 };
 
