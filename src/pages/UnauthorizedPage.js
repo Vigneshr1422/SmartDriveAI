@@ -31,8 +31,11 @@ const UnauthorizedPage = () => {
       >
         <h2 className="text-4xl font-bold text-white">Access Denied 🚫</h2>
         <p className="text-lg text-gray-200 mt-2">
-          You don't have permission to view this page.
-        </p>
+          You don't have permission to view  page or
+          </p>
+          <p className="text-lg text-gray-200 mt-2">
+           Your Id is Blocked by Manager 
+            </p>
 
         <button
   className="mt-5 px-6 py-2 bg-red-600 hover:bg-red-700 text-white 

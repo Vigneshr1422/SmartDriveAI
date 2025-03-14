@@ -63,7 +63,7 @@ const HomePage = () => {
             Why Choose Drive AI? 🚀
           </h2>
           <p className="text-lg text-gray-700 mb-10 leading-relaxed">
-            Drive AI is your all-in-one platform for **personalized mock interviews**, **ATS-friendly resumes**, and **real-time placement opportunities**. Take the leap toward a successful career with cutting-edge AI-powered tools.
+            Drive AI is your all-in-one platform for personalized mock interviews, ATS-friendly resumes, and real-time placement opportunities. Take the leap toward a successful career with cutting-edge AI-powered tools.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
@@ -130,7 +130,7 @@ const HomePage = () => {
               🎯 Start Your Journey with Drive AI Today!
             </h3>
             <p className="text-gray-300 mt-4">
-              Whether you’re a fresher or an experienced job seeker, Drive AI provides the **best tools** to **boost your career**. Our **resume scanner, AI-driven interviews, and job alerts** will keep you ahead in the hiring process.
+              Whether you’re a fresher or an experienced job seeker, Drive AI provides the best tools to boost your career. Our resume scanner, AI-driven interviews, and job alerts will keep you ahead in the hiring process.
             </p>
             <Link to="/register">
               <button className="mt-6 px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-lg shadow-lg transition duration-300">
