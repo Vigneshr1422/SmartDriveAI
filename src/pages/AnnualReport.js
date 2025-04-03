@@ -71,7 +71,7 @@ const AnnualReport = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <div className="text-gray-700 text-lg">wait panra ..</div>
+        <div className="text-gray-700 text-lg">Wait Please ..</div>
       </div>
     );
   }

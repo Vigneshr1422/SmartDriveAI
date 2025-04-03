@@ -143,9 +143,11 @@ const RegisterPage = () => {
               <option value="">Select Department</option>
               <option value="MCA">MCA</option>
               <option value="MBA">MBA</option>
-              <option value="EC">EC</option>
-              <option value="CSSE">CSSE</option>
-              <option value="EEEE">EEEE</option>
+              <option value="ECE">ECE</option>
+              <option value="CSE">CSE</option>
+              <option value="EEE">EEE</option>
+              <option value="CSBS">CSBS</option>
+              
             </select>
           </div>
         </>
