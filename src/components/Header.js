@@ -242,8 +242,8 @@ const Header = () => {
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center space-x-2">
-          <img src="/drive.png" alt="Logo" className="w-8 h-8" />
-          <h1 className="text-xl font-bold">Drive AI 🔍</h1>
+          <img src="/logoz.png" alt="Logo" className="w-8 h-8" />
+          <h1 className="text-xl font-bold">SmartDrive AI </h1>
         </div>
 
         {/* Desktop Navigation */}
