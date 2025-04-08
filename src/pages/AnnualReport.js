@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { db } from "../auth/firebase"; // Your Firestore configuration
-import { collection, getDocs, doc, updateDoc } from "firebase/firestore"; // Firestore functions
-import { getAuth } from "firebase/auth"; // Firebase Authentication
-import { useNavigate } from "react-router-dom"; // Import useNavigate instead of useHistory
+import { db } from "../auth/firebase";
+import {
+  collection,
+  getDocs,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import * as XLSX from "xlsx"; // For Excel export
 
 const AnnualReport = () => {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [toastMessage, setToastMessage] = useState(""); // For showing toast messages
-  const navigate = useNavigate(); // Using useNavigate for navigation
+  const [toastMessage, setToastMessage] = useState("");
+  const [statusUpdating, setStatusUpdating] = useState(false);
+  
+  const navigate = useNavigate();
 
-  // Fetch students data from Firestore on component mount
   useEffect(() => {
     const fetchStudents = async () => {
       try {
@@ -18,13 +25,17 @@ const AnnualReport = () => {
         const user = auth.currentUser;
 
         if (user) {
-          // Fetch the students from Firestore
-          const studentsRef = collection(db, `class-students/${user.uid}/students`);
+          const studentsRef = collection(
+            db,
+            `class-students/${user.uid}/students`
+          );
           const studentSnap = await getDocs(studentsRef);
-          const studentsList = studentSnap.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
+          const studentsList = studentSnap.docs
+            .map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            }))
+            .sort((a, b) => a.regNo.localeCompare(b.regNo)); // Sort by Reg No
 
           setStudents(studentsList);
         } else {
@@ -40,33 +51,60 @@ const AnnualReport = () => {
     fetchStudents();
   }, []);
 
-  // Handle the status change (update placement status)
   const handleStatusChange = async (studentId, newStatus) => {
     try {
-      const studentRef = doc(db, `class-students/${getAuth().currentUser.uid}/students`, studentId);
+      setStatusUpdating(true);
+      const studentRef = doc(
+        db,
+        `class-students/${getAuth().currentUser.uid}/students`,
+        studentId
+      );
       await updateDoc(studentRef, {
         placementStatus: newStatus,
       });
 
-      // Update the local state after successful update
       setStudents((prevStudents) =>
         prevStudents.map((student) =>
-          student.id === studentId ? { ...student, placementStatus: newStatus } : student
+          student.id === studentId
+            ? { ...student, placementStatus: newStatus }
+            : student
         )
       );
 
-      // Show toast message
       setToastMessage(`Placement status updated to ${newStatus}`);
-      setTimeout(() => setToastMessage(""), 3000); // Hide toast after 3 seconds
+      setTimeout(() => setToastMessage(""), 3000);
     } catch (error) {
       console.error("Error updating placement status:", error);
+    } finally {
+      setStatusUpdating(false);
     }
   };
 
-  // Handle Back Button Click
   const handleBackButtonClick = () => {
-    navigate(-1); // Use navigate(-1) to go back to the previous page
+    navigate(-1);
   };
+
+  // Export to Excel function
+  const exportToExcel = () => {
+    const formattedData = students.map(({ regNo, name, gender, passedOutYear, placementStatus }) => ({
+      "Reg No": regNo,
+      "Name": name,
+      "Gender": gender,
+      "Year of Passout": passedOutYear,
+      "Placement Status": placementStatus || "Not Updated",
+    }));
+  
+    const ws = XLSX.utils.json_to_sheet(formattedData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Students");
+  
+    XLSX.writeFile(wb, "Annual_Report.xlsx");
+  
+    // 🥂 Toast on successful download
+    setToastMessage("Excel downloaded successfully!");
+    setTimeout(() => setToastMessage(""), 3000);
+  };
+  
 
   if (loading) {
     return (
@@ -78,16 +116,29 @@ const AnnualReport = () => {
 
   return (
     <div className="p-8 pt-24 bg-gradient-to-b from-gray-100 to-gray-200 min-h-screen">
-      {/* Header */}
       <h2 className="text-3xl font-extrabold text-gray-900 mb-6 text-center tracking-wide">
         Annual Report
       </h2>
-  
-      {/* Table Container */}
+
+      <div className="flex justify-center mb-4 gap-4">
+        <button
+          onClick={exportToExcel}
+          className="px-4 py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 shadow-md"
+        >
+          📤 Export to Excel
+        </button>
+
+        <button
+          onClick={handleBackButtonClick}
+          className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 shadow-md"
+        >
+          🔙 Back
+        </button>
+      </div>
+
       <div className="overflow-hidden bg-white shadow-lg rounded-lg p-4 max-w-5xl mx-auto">
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-sm">
-            {/* Table Header */}
             <thead>
               <tr className="bg-blue-600 text-white text-left text-xs uppercase tracking-wider">
                 <th className="px-4 py-3 border-r">Reg No</th>
@@ -98,8 +149,6 @@ const AnnualReport = () => {
                 <th className="px-4 py-3 text-center">Action</th>
               </tr>
             </thead>
-  
-            {/* Table Body */}
             <tbody>
               {students.map((student, index) => (
                 <tr
@@ -118,7 +167,9 @@ const AnnualReport = () => {
                   <td className="px-4 py-2 text-center">
                     <select
                       value={student.placementStatus || ""}
-                      onChange={(e) => handleStatusChange(student.id, e.target.value)}
+                      onChange={(e) =>
+                        handleStatusChange(student.id, e.target.value)
+                      }
                       className="px-2 py-1 border border-gray-300 rounded-lg shadow-sm focus:ring-1 focus:ring-blue-500 focus:outline-none bg-white text-xs"
                     >
                       <option value="">Select</option>
@@ -133,27 +184,26 @@ const AnnualReport = () => {
           </table>
         </div>
       </div>
-  
-      {/* Back Button */}
-      <div className="mt-6 flex justify-center">
-        <button
-          onClick={handleBackButtonClick}
-          className="px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition text-sm"
-        >
-          Back
-        </button>
-      </div>
-  
-      {/* Toast Notification - Now at Bottom Center */}
+
+      {statusUpdating && (
+        <div className="fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white px-4 py-2 rounded-md shadow-lg text-sm animate-pulse">
+          Updating...
+        </div>
+      )}
+{/* Toast Notification */}
+{toastMessage && (
+  <div className="fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg text-sm animate-fadeIn z-50">
+    {toastMessage}
+  </div>
+)}
+
       {toastMessage && (
-        <div className="fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg text-sm animate-fadeIn">
+        <div className="fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg text-sm animate-fadeIn">
           {toastMessage}
         </div>
       )}
     </div>
   );
-  
-  
 };
 
 export default AnnualReport;
